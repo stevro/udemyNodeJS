@@ -1,0 +1,37 @@
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% users.forEach(function(user) { %>
+			<tr>
+				<td><%=user.name%></td>
+				<td><%=user.email%></td>
+				<td><input type="button" name="deleteUser" value="Delete" onclick="deleteUser('<%=user.id%>')"/></td>
+			</tr>
+		<% }); %>
+	</tbody>
+</table>
+
+<form method="post" action="/users">
+	<div><input autofocus placeholder="name" name="name"/></div>
+	<div><input placeholder="email" type="email" name="email"/></div>
+	<button type="submit">Add</button>
+</form>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+function deleteUser(id){
+	request = $.ajax({
+			type:"DELETE",
+			data:{id:id},
+			url:'/users/' + id
+		});
+		request.done(function(){
+			alert("User deleted!");
+		});
+}
+</script>
